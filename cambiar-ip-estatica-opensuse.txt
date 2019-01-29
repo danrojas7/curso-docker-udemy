@@ -1,0 +1,20 @@
+lsb_release -a; route -n; ifconfig
+
+interface
+route IP: 192.168.0.1
+
+gedit /etc/sysconfig/network/ifcfg-eth0 &>/dev/null
+BOOTPROTO='static'
+IPADDR='192.168.0.7'
+NETMASK='255.255.255.0'
+
+gedit /etc/sysconfig/network/config &>/dev/null
+NETCONFIG_DNS_STATIC_SERVERS="8.8.8.8 8.8.4.4 192.168.0.1"
+gedit /etc/sysconfig/network/routes &>/dev/null
+#Set Default Gateway
+default 192.168.0.1 - eth0
+
+systemctl restart wickedd wicked
+restart
+
+
