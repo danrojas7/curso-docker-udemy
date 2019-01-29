@@ -84,7 +84,15 @@ Ahora se va a desarrollar una aplicación, en la cual se va a registrar un corre
 
 Docker compose
 
-Al momento de iniciar los containers, es engorroso estar ingresando los comandos cada momento para iniciar el contenedor para un área de desarrollo. Para esto se docker definió un fichero de configuración llamado docker-compose.yml, este tiene una equivalencia 1 a 1 con el comando para iniciar el contenedor
+Al momento de iniciar los containers, es engorroso estar ingresando los comandos cada momento para iniciar el contenedor para un área de desarrollo. Para esto se docker definió un fichero de configuración llamado docker-compose.yml, este tiene una equivalencia 1 a 1 con el comando para iniciar el contenedor.
+
+Para iniciar el contenedor, que tenga el fichero docker-compose.yml, se ejecuta mediante el siguiente comando:
+$ docker-compose up
+
+Puede que se tenga que instalar por separado en linux, el paquete que tiene las dependencias con el binario docker-compose, para esto se ingresa el siguiente comando:
+$ zypper install docker-compose
+
+
 
 
 
