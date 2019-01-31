@@ -32,17 +32,17 @@ run                 # crea un container
 --rm                # cuando este container termine su ejecución, se elimina el container
 -it                 # flags -tty --interactive, si no se incluyen estos comandos, no se puede ver el output
                     # de los comandos ingresados, y no se puede interactuar con el comando si solicita una entrada de parte del usuario
--v "$(pwd)":/app    # Dentro del daemon docker, se ejecutan los containers, los cuales están aislados del sistema 
-                    # operativo, tampoco comparten el sistema de archivos, lo que se requiere es que el directorio de 
-                    # laravel, se empaquete dentro del container, para esto se le debe indicar a docker, que realice 
+-v "$(pwd)":/app    # Dentro del daemon docker, se ejecutan los containers, los cuales están aislados del sistema
+                    # operativo, tampoco comparten el sistema de archivos, lo que se requiere es que el directorio de
+                    # laravel, se empaquete dentro del container, para esto se le debe indicar a docker, que realice
                     # en mapeo entre la ruta del sistema de archivos del sistema operativo host, con la estructura
-                    # de directorios del container, una vez que el directorio de laravel se haya incluido dentro del 
+                    # de directorios del container, una vez que el directorio de laravel se haya incluido dentro del
                     # container, se ejecuta el comando composer install, que lo que hace es leer el
                     # archivo composer.json, con todas las dependencias a instalar, como también para generar el
                     # directorio vendor, en donde van a ser instaladas
                     # Si se comprueba la línea
                     # $ echo "$(pwd)"
-                    # lo que hace es mostrar la carpeta en la que está ubicado actualmente, y es la que se va a 
+                    # lo que hace es mostrar la carpeta en la que está ubicado actualmente, y es la que se va a
                     # enlazar al container
 -d composer         # imagen en la que se va a basar el container
 composer install    # El comando que se va a ejecutar dentro del container
@@ -94,5 +94,26 @@ $ zypper install docker-compose
 
 
 
+version: '3'                                        # Version de docker compose
+services:
+    web:                                            # Puede hacer referencia con cualquier nombre al servicio,
+                                                    # en este caso se llama web
+        image: 'captacion-php'                      # imagen en la que se va a basar el docker compose para
+                                                    # crear el container
+        ports:
+            - '8000:8000'                           # Mapeo de puerto local vs container
+        volumes:
+            - ./:/app                               # mapeo de volumenes de directorio local vs el del container
+        command: php artisan serve --host=0.0.0.0   # comando que se va a ejecutar una vez se haya creado el
+                                                    # container con la sentencia del docker compose
+
+Las banderas de --rm, e -it, ya no son necesarias ya que de la gestión del container se encarga directamente el docker-compose, y la salida interactiva también, aunque un poco diferente a como se estaba presentando al ejecutar el comando manualmente dentro de la consola.
+
+Ventajas
+- Fichero descriptivo, más facil de entender el archivo, en lugar de entender un comando
+- Ejemplos en docker para añadir los servicios como por ejemplo mysql
+- Cualquier desarrollador se puede olvidar los comandos específicos para lanzar un container
+- Se puede montar un stack completo especificando en el docker.compose.yml, en cada caso la tecnología a utilizar
+- Facil de cambiar dependencias y versiones, y facil compartir y versionar el stack en repositorios de código como github
 
 
