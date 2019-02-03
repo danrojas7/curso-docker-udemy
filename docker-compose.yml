@@ -17,5 +17,14 @@ services:
                         - MYSQL_ROOT_PASSWORD=toor
                 volumes:
                         - mysql-data:/var/lib/mysql
+        phpmyadmin:
+                image: 'phpmyadmin/phpmyadmin'
+                ports:
+                        - '8080:8080'
+                environment:
+                        - PMA_ARBITRARY=0
+                        - PMA_HOST=localhost
+                        - PMA_VERBOSE=Mysql localhost
+                        - PMA_PORT=3306
 volumes:
         mysql-data:
