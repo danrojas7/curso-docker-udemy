@@ -19,12 +19,11 @@
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link href="css/coming-soon.min.css" rel="stylesheet">
+    <link href="./css/coming-soon.min.css" rel="stylesheet">
 
   </head>
 
   <body>
-
     <div class="overlay"></div>
     <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
       <source src="mp4/bg.mp4" type="video/mp4">
