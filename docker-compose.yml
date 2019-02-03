@@ -21,10 +21,11 @@ services:
                 image: 'phpmyadmin/phpmyadmin'
                 ports:
                         - '8080:80'
+                mysql_db_server: mysql
                 environment:
                         - PMA_ARBITRARY=0
-                        - PMA_HOST=127.0.0.1
                         - PMA_VERBOSE=Mysql localhost
+                        - PMA_HOST=192.168.0.7
                         - PMA_PORT=3306
 volumes:
         mysql-data:
