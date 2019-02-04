@@ -39,10 +39,12 @@
               <p class="mb-5">We're working hard to finish the development of this site. Our target launch date is
                 <strong>January 2019</strong>! Sign up for updates using the form below!</p>
               <div class="input-group input-group-newsletter">
-                <input type="email" class="form-control" placeholder="Enter email..." aria-label="Enter email..." aria-describedby="basic-addon">
-                <div class="input-group-append">
-                  <button class="btn btn-secondary" type="button">Notify Me!</button>
-                </div>
+                <form action="/email" method="get" class="form">
+                  <input type="email" class="form-control" placeholder="Enter email..." aria-label="Enter email..." aria-describedby="basic-addon">
+                  <div class="input-group-append">
+                    <button class="btn btn-secondary" type="summit">Notify Me!</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

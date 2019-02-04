@@ -116,4 +116,82 @@ Ventajas
 - Se puede montar un stack completo especificando en el docker.compose.yml, en cada caso la tecnología a utilizar
 - Facil de cambiar dependencias y versiones, y facil compartir y versionar el stack en repositorios de código como github
 
+Al crear el contenedor de base de datos, se debe remitir a la documentación de la imagen oficial, para así establecer la configuración con variables de entorno, por ejemplo se le puede setear el password de root para cuando instancie el container, se pueda leer la variable de entorno del password del root, y así setearla en la base de datos.
+
+Es importante utilizar volúmenes locales enlazados a los de los containers, ya que al momento de detener y eliminar container, se puede perder la información almancenada en la base de datos.
+
+con la instrucción:
+
+volumes:
+        mysql-data:
+
+En el docker-compose.yml:
+
+version: '3'
+
+services:
+        web:
+                image: 'captacion-php'
+                ports:
+                        - '8000:8000'
+                volumes:
+                        - ./:/app
+                command: php artisan serve --host=0.0.0.0
+
+        mysql:
+                image: 'mysql:5.7'
+                ports:
+                        - '3306:3306'
+                environment:
+                        - MYSQL_ROOT_PASSWORD=toor
+                volumes:
+                        - mysql-data:/var/lib/mysql
+volumes:
+        mysql-data:
+        
+Se le puede indicar a la configuración para crear un volumen lógico, a partir de la ruta definida en la instrucción volumes del mysql, en este caso crea un volumen lógico a partir de /var/lib/mysql definido en la instrucción mysql-data de la configuración del container de mysql.
+
+El docker-compose.yml, al ejecutar el comando docker-compose up, también automáticamente descarga las imágenes definidas
+
+Al hacer que un container se pueda comunicar con otro container, esto se puede definir como también la cardinalidad de la relación.
+
+mediante la instrucción en la aplicación web:
+
+links
+    - 'mysql'
+
+Se le indica que enlace la aplicación web con la base de datos mysql.
+
+Ahora para enlazar en la configuración web de Laravel con el motor de base de datos de MySQL correspondiente al otro componente del proyecto definido en el docker-compose.yml, se puede de hacer de las siguientes 3 maneras:
+- Se puede indicar en el nombre del host en el archivo de configuración, la ip del localhost, ya que localhost a definir dentro del container (IP 127.0.0.1, ó localhost), hace autoreferencia dentro del mismo container, y no puede hacer conexión ya que el motor de MySQL está en otro container, por lo tantno no funciona.
+- Se puede validar la IP del container del motor de base de datos MySQL, y se puede setear en el archivo de configuración de Laravel, sin embargo al reiniciar los containers, se encuentra que esta IP varía, por lo tanto se perdería la conexión entre el proyecto web y la base de datos, por lo tanto funcionaría, pero parcialmente.
+- La última opción, es dejar a docker dns, que defina cúal debería ser la IP del container, haciendo referencia a la propiedad host dentro del archivo de configuración del Laravel, del nombre del container, en este caso 'mysql', y con  esto docker dns lo traduce a IP, logrando la conexión correcta no importando si la IP del MySQL varía en los reinicios de los containers.
+
+Como conectar a un container?
+
+Dentro de la carpeta del proyecto, se ejecuta el siguiente comando
+$ docker-compose exec web bash
+
+Lo que hace es conectar a una terminal bash, dentro del container
+
+Para ejecutar los siguientes comandos
+$ php artisan
+$ php artisan migrate:status # comando para comprobar las migraciones
+$ php artisan migrate # comando para crear las tablas necesarias de laravel directamente en la base de datos MySQL
+$ exit # salir del container
+
+Para ejecutar un comando dentro del container, sin necesidad de abrir una shell, se puede ejecutar el siguiente comando:
+$ docker-compose exec web /app/artisan migrate:status
+
+De igual manera se podría conectar al container de mysq, y ejecutar comandos dentro del mismo;
+$ docker-compose exec mysql bash
+
+Se puede conectar directamente a la base de datos mediante el siguiente comando:
+$ mysql -u root -p${MYSQL_ROOT_PASSWORD} -h localhost -P 3306
+
+O se puede hacer lo siguiente directamente:
+$ docker-compose exec mysql mysql -u root -p${MYSQL_ROOT_PASSWORD} -h localhost -P 3306 -e 'show databases'
+$ docker-compose exec mysql mysql -u root -p${MYSQL_ROOT_PASSWORD} -D captacion -h localhost -P 3306 -e 'select * from migrations;'
+
+
 
