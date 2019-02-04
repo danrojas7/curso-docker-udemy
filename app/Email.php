@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticable;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Emaill extends Model
+class Email extends Model
 {
     protected $table = 'emails';
 
