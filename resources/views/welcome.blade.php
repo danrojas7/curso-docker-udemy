@@ -40,7 +40,7 @@
                 <strong>January 2019</strong>! Sign up for updates using the form below!</p>
               <div class="input-group input-group-newsletter">
                 <form action="/email" method="get" class="form">
-                  <input name="name" type="email" class="form-control" placeholder="Enter email..." aria-label="Enter email..." aria-describedby="basic-addon">
+                  <input name="email" type="email" class="form-control" placeholder="Enter email..." aria-label="Enter email..." aria-describedby="basic-addon">
                   <div class="input-group-append">
                     <button class="btn btn-secondary" type="summit">Notify Me!</button>
                   </div>
