@@ -197,4 +197,11 @@ $ docker-compose exec mysql mysql -u root -p${MYSQL_ROOT_PASSWORD} -D captacion 
 Conectarse a una consola dentro del container:
 docker exec -it <mycontainer> bash
 
+Mostrar los logs de la consola en el container
+docker logs <mycontainer>
+
+
+Ó utilizando docker-compose
+docker-compose logs kafka
+
 
