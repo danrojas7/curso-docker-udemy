@@ -194,4 +194,7 @@ $ docker-compose exec mysql mysql -u root -p${MYSQL_ROOT_PASSWORD} -h localhost 
 $ docker-compose exec mysql mysql -u root -p${MYSQL_ROOT_PASSWORD} -D captacion -h localhost -P 3306 -e 'select * from migrations;'
 
 
+Conectarse a una consola dentro del container:
+docker exec -it <mycontainer> bash
+
 
