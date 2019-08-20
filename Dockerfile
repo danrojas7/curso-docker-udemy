@@ -1,7 +1,7 @@
 FROM php:latest
 
 RUN apt-get update && apt-get install -y libmcrypt-dev \
-    mysql-client libmagickwand-dev --no-install-recommends
+    mariadb-client libmagickwand-dev --no-install-recommends
 
 RUN pecl install imagick
 RUN docker-php-ext-enable imagick

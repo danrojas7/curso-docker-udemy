@@ -7,6 +7,16 @@ Instalación de docker
 Linux
 apt install docker
 
+Instalación en OpenSuse:
+sudo zypper install docker docker-compose
+
+Configuraciones posteriores a la instalación:
+$ sudo groupadd docker              # crea el grupo de los usuarios que tienen derecho a la administración de docker
+$ sudo usermod -aG docker $USER     # agrega el usuario actual al grupo de docker
+
+$ sudo systemctl enable docker      # habilitar docker para ejecutarse al iniciar el sistema operativo
+$ sudo systemctl disable docker     # deshabilitar docker para ejecutarse al iniciar el sistema operativo
+
 Instalar laravel
 - Descargar la versión de laravel de la página https://github.com/laravel/laravel
 - Se debe instalar PHP Composer en la máquina host
@@ -80,7 +90,7 @@ Con lo cual ya no arroja el error que anteriormente se presentaba.
 En la página, se pueden descargar plantillas predefinidas para mostrar en nuestro servidor de aplicaciones.
 https://startbootstrap.com/
 
-Ahora se va a desarrollar una aplicación, en la cual se va a registrar un correo electrónico, y este al diligenciarse va a enviar un e-mail con la información de que el sitio está en desarrollo, y que está inscrito en el mism, con lo cual se va a almacenar en una base de datos, posteriormente se va a leer los correos electrónicos almacenados en una base de datos mysql y se va a enviar la notificación por correo electrónico de que el sitio ya se encuentra listo, para esto se va a configurar la base de datos mysql, y también se va a conectar a un servicio FakeMail para realizar el envío de correos electrónicos.
+Ahora se va a desarrollar una aplicación, en la cual se va a registrar un correo electrónico, y este al diligenciarse va a enviar un e-mail con la información de que el sitio está en desarrollo, y que está inscrito en el mismo, con lo cual se va a almacenar en una base de datos, posteriormente se va a leer los correos electrónicos almacenados en una base de datos mysql y se va a enviar la notificación por correo electrónico de que el sitio ya se encuentra listo, para esto se va a configurar la base de datos mysql, y también se va a conectar a un servicio FakeMail para realizar el envío de correos electrónicos.
 
 Docker compose
 
@@ -148,7 +158,7 @@ services:
                         - mysql-data:/var/lib/mysql
 volumes:
         mysql-data:
-        
+
 Se le puede indicar a la configuración para crear un volumen lógico, a partir de la ruta definida en la instrucción volumes del mysql, en este caso crea un volumen lógico a partir de /var/lib/mysql definido en la instrucción mysql-data de la configuración del container de mysql.
 
 El docker-compose.yml, al ejecutar el comando docker-compose up, también automáticamente descarga las imágenes definidas
